@@ -42,6 +42,7 @@ k -n argocd get all
 # Check the admin password encrypted
 k -n argocd get secret argocd-secret -o json | jq '.data["admin.password"]' -r
 k -n argocd get secret argocd-secret -o jsonpath="{.data.admin\.password}"
+```
 
 ## Install ArgoCD CLI
 
