@@ -44,8 +44,73 @@ k -n argocd get secret argocd-secret -o json | jq '.data["admin.password"]' -r
 k -n argocd get secret argocd-secret -o jsonpath="{.data.admin\.password}"
 ```
 
-### Install ArgoCD CLI
+## ArgoCD CLI
+
+### Install
 
 ```bash
+# MacOS
 brew intall argocd
+
+# Check version
+argocd version
+
+```
+
+### list applications
+
+```bash
+# Login using the exiting port-forwarding
+argocd login 127.0.0.1:8080
+
+# list the applications
+argocd app list
+
+# list clusters
+argocd cluster list
+```
+
+## Manage applications
+
+## Install Webapp color Helm app
+
+```bash
+# Create namespace
+k create ns webapp
+
+# Create an application project
+argocd app create colorapp \
+--repo https://github.com/josefloressv/helm \
+--path webapp-color/ \
+--dest-namespace webapp \
+--dest-server https://kubernetes.default.svc
+
+# List the applications
+argocd app list
+
+# Get info of the application
+argocd app get colorapp
+
+# Sync application
+argocd app sync colorapp
+
+```
+
+## Install guest-book Helm app
+
+* Repository: https://github.com/argoproj/argocd-example-apps
+* Helm application path: helm-guestbook/
+
+```bash
+# Create namespace
+k create ns guestbook
+
+# Create an application project
+argocd app create guestbook \
+--repo https://github.com/argoproj/argocd-example-apps \
+--path helm-guestbook/ \
+--dest-namespace guestbook \
+--dest-server https://kubernetes.default.svc \
+--helm-set service.type=NodePort
+
 ```
