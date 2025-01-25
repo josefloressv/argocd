@@ -44,7 +44,7 @@ k -n argocd get secret argocd-secret -o json | jq '.data["admin.password"]' -r
 k -n argocd get secret argocd-secret -o jsonpath="{.data.admin\.password}"
 ```
 
-## Install ArgoCD CLI
+### Install ArgoCD CLI
 
 ```bash
 brew intall argocd
