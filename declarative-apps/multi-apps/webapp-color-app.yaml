@@ -9,11 +9,12 @@ spec:
     repoURL: https://github.com/josefloressv/helm
     targetRevision: HEAD
     path: webapp-color/
-    # helm:
-    #   parameters:
-    #   - name: "service.type"
-    #     value: "NodePort"
-   
+    helm:
+      parameters:
+      - name: "service.type"
+        value: "NodePort"
+      - name: "service.nodePort"
+        value: "30083"
   destination:
     server: https://kubernetes.default.svc
     namespace: webapp-color
