@@ -1,5 +1,25 @@
 # ArgoCD Playground
 
+## Table of Contents
+- [ArgoCD Playground](#argocd-playground)
+  - [Table of Contents](#table-of-contents)
+  - [Install with Helm](#install-with-helm)
+    - [Login to the ArgoCD UI](#login-to-the-argocd-ui)
+    - [Reinstall](#reinstall)
+    - [Other commands](#other-commands)
+  - [ArgoCD CLI](#argocd-cli)
+    - [Install](#install)
+    - [list applications](#list-applications)
+  - [Manage applications](#manage-applications)
+  - [Install Webapp color Helm app](#install-webapp-color-helm-app)
+  - [Install guest-book Helm app](#install-guest-book-helm-app)
+  - [Reconciliation loop](#reconciliation-loop)
+    - [Verify from an installed ArgoCD](#verify-from-an-installed-argocd)
+  - [Update Configuration with Helm chart](#update-configuration-with-helm-chart)
+  - [Define a Custom Health Check in argocd-cm ConfigMap](#define-a-custom-health-check-in-argocd-cm-configmap)
+  - [Git Webhook Configuration](#git-webhook-configuration)
+  - [Declarative Setup - Applications](#declarative-setup---applications)
+
 ## Install with Helm
 
 ```bash
