@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ghost-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/josefloressv/helm
+    targetRevision: HEAD
+    path: ghost/
+    # helm:
+    #   parameters:
+    #   - name: "service.type"
+    #     value: "NodePort"
+   
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ghost
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true  
+    automated:
+      prune: true  # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+      allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
