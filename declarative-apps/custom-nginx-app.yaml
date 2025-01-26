@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/josefloressv/argocd
     targetRevision: HEAD
-    path: nginx/
+    path: custom-nginx/
    
   destination:
     server: https://kubernetes.default.svc
