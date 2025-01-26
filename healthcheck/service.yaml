@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthcheck-service
+  labels:
+    app: healthcheck
+spec:
+  selector:
+    app: healthcheck
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30001
