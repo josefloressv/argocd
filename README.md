@@ -192,3 +192,29 @@ k -n argocd get cm argocd-cm -o yaml
 k -n argocd get svc 
 
 ```
+
+## Define a Custom Health Check in argocd-cm ConfigMap
+Argo CD supports custom health checks written in Lua. This is useful if you:
+* Are affected by known issues where your Ingress or StatefulSet resources are stuck in Progressing state because of bug in your resource controller.
+* Have a custom resource for which Argo CD does not have a built-in health check.
+
+
+https://argo-cd.readthedocs.io/en/stable/operator-manual/health/
+
+patch.yaml
+```yaml
+  data:
+    resource.customizations.health.ConfigMap: |
+      hs = {}
+      hs.status = "Healthy"
+       if obj.data.PROPERTY == "ValuesX" then
+          hs.status = "Degraded"
+          hs.message = "Use any PROPERTY other than ValuesX "
+       end
+      return hs
+```
+
+patch
+```bash
+kubectl patch configmap argocd-cm -n argocd --patch-file patch.yaml
+```
