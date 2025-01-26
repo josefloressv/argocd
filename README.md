@@ -227,3 +227,17 @@ https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/
 
 Create The WebHook In The Git Provider:
 Navigate to the settings page where webhooks can be configured. The payload URL configured in the Git provider should use the `/api/webhook` endpoint of your Argo CD instance (e.g. https://argocd.example.com/api/webhook).
+
+## Declarative Setup - Applications
+https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications
+The Application CRD is the Kubernetes resource object representing a deployed application instance in an environment. It is defined by two key pieces of information:
+
+source reference to the desired state in Git (repository, revision, path, environment)
+destination reference to the target cluster and namespace. For the cluster one of server or name can be used, but not both (which will result in an error). Under the hood when the server is missing, it is calculated based on the name and used for any operations.
+
+Example: [./declarative-apps/mono-app/custom-nginx.yaml](./declarative-apps/mono-app/custom-nginx.yaml)
+
+Deploy:
+```bash
+k apply -f ./declarative-apps/mono-app/custom-nginx.yaml
+```
