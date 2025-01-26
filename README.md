@@ -182,7 +182,7 @@ server:
 helm -n argocd upgrade my-argocd argo/argo-cd -f argocd-custom-values.yaml
 ```
 
-1. Verify
+4. Verify
 
 ```bash
 # Reconciliation timeout
