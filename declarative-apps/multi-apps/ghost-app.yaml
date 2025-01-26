@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ghost
+  name: ghost-blog
   namespace: argocd
 spec:
   project: default
@@ -9,11 +9,12 @@ spec:
     repoURL: https://github.com/josefloressv/helm
     targetRevision: HEAD
     path: ghost/
-    # helm:
-    #   parameters:
-    #   - name: "service.type"
-    #     value: "NodePort"
-   
+    helm:
+      parameters:
+      - name: "Service.type"
+        value: "NodePort"
+      - name: "Service.nodePort"
+        value: "30084"
   destination:
     server: https://kubernetes.default.svc
     namespace: ghost
