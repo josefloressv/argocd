@@ -1,0 +1,8 @@
+configs:
+  cm:
+    timeout.reconciliation: 1d
+server:
+  service:
+    nodePortHttp: 30085
+    nodePortHttps: 30445
+    type: NodePort

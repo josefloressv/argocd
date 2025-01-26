@@ -6,6 +6,7 @@
 helm repo add argo https://argoproj.github.io/argo-helm
 k create ns argocd
 helm install my-argocd argo/argo-cd --version 7.7.17 -n argocd --debug
+# configs.secret.argocdServerAdminPassword
 ```
 
 ### Login to the ArgoCD UI
@@ -119,5 +120,75 @@ argocd app create solar-system-app-2 \
 --path ./solar-system/ \
 --dest-namespace solar-system \
 --dest-server https://kubernetes.default.svc
+
+```
+
+## Reconciliation loop
+
+By default ArgoCD have a reconciliation timeout to 180s
+
+from values.yaml
+```yaml
+configs:
+  cm:
+    timeout.reconciliation: 180s
+```
+
+### Verify from an installed ArgoCD
+
+```bash
+
+# From the Helm chart
+
+# From config map
+k -n argocd get cm argocd-cm -o yaml
+k -n argocd get cm argocd-cm -o jsonpath="{.data.timeout\.reconciliation}"
+
+# From the pod running
+k -n argocd get po my-argocd-repo-server-68d5f98f9c-72kgf -o yaml
+
+```
+
+## Update Configuration with Helm chart
+
+Configuration changes:
+* Reconciliation timeout to 1 day
+* ArgoCD Server service from ClusterIP to NodePort 30085
+
+
+1. Save the values of a Helm release to a YAML file, to read the entire values
+
+```bash
+# Save the values of a Helm release to a YAML file, to read the entire values
+helm -n argocd get values my-argocd --all > argocd-custom-values.yaml
+```
+
+2. Remove all, and leave only the necessary ([./argocd-custom-values.yaml](./argocd-custom-values.yaml))
+
+```yaml
+configs:
+  cm:
+    timeout.reconciliation: 60s
+server:
+  service:
+    nodePortHttp: 30085
+    nodePortHttps: 30445
+    type: NodePort
+```
+
+3. Upgrade the ArgoCD
+
+```bash
+helm -n argocd upgrade my-argocd argo/argo-cd -f argocd-custom-values.yaml
+```
+
+1. Verify
+
+```bash
+# Reconciliation timeout
+k -n argocd get cm argocd-cm -o yaml
+
+# NodePort ArgoCD server
+k -n argocd get svc 
 
 ```
