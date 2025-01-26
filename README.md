@@ -218,3 +218,9 @@ patch
 ```bash
 kubectl patch configmap argocd-cm -n argocd --patch-file patch.yaml
 ```
+
+## Git Webhook Configuration
+https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/
+
+Create The WebHook In The Git Provider:
+Navigate to the settings page where webhooks can be configured. The payload URL configured in the Git provider should use the `/api/webhook` endpoint of your Argo CD instance (e.g. https://argocd.example.com/api/webhook).
