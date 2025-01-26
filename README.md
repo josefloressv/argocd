@@ -61,6 +61,9 @@ argocd version
 ### list applications
 
 ```bash
+# Get initial password
+argocd admin initial-password -n argocd
+
 # Login using the exiting port-forwarding
 argocd login 127.0.0.1:8080
 
