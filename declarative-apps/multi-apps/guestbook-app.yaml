@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook-app
+  name: guestbook
   namespace: argocd
 spec:
   project: default
