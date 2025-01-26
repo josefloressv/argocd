@@ -67,6 +67,9 @@ argocd login 127.0.0.1:8080
 # list the applications
 argocd app list
 
+# Using kubectl command
+k -n argocd get applications -o wide
+
 # list clusters
 argocd cluster list
 ```
