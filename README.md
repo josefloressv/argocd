@@ -113,4 +113,11 @@ argocd app create guestbook \
 --dest-server https://kubernetes.default.svc \
 --helm-set service.type=NodePort
 
+# KK example
+argocd app create solar-system-app-2 \
+--repo https://3000-port-sekynz6nbi3fo364.labs.kodekloud.com/bob/gitops-argocd.git \
+--path ./solar-system/ \
+--dest-namespace solar-system \
+--dest-server https://kubernetes.default.svc
+
 ```
